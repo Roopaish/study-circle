@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.tag-wrapper.ReactTags__tag {
+  padding: 8px 10px;
+  margin: 4px;
+  border-radius: 4px;
+  background: green;
+  color: white;
+}
+
+.ReactTags__suggestions {
+  padding: 8px 10px;
+  border-radius: 4px;
+  background: rgb(229 231 235);
+  color: black;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  top: 100%;
+  z-index: 1000;
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+.ReactTags__suggestions li {
+  padding: 8px 10px;
+  margin: 4px 0;
+  border-radius: 4px;
+  background: white;
+  color: black;
+  cursor: pointer;
+}
+
+.ReactTags__suggestions li:hover {
+  background: gray;
+  color: white;
+}
+
+.ReactTags__activeSuggestion {
+  background: rgb(229 231 235);
+}
+
+.react-tags-wrapper {
+  position: relative;
+}
+
+@layer base {
+  a:not(.no-style) {
+    @apply text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline focus:text-blue-700;
+  }
+  p {
+    @apply mt-2 text-base text-gray-600;
+  }
+  h2 {
+    @apply text-3xl font-bold leading-tight text-black sm:text-4xl;
+  }
+
+  input {
+    @apply block w-full rounded-md border border-gray-200 bg-gray-50 p-4 text-black placeholder-gray-500 caret-blue-600 transition-all duration-200 focus:border-blue-600 focus:bg-white focus:outline-none;
+  }
+}
+
+@layer components {
+  .slick-scroll-bar::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  .slick-scroll-bar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  .slick-scroll-bar::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+}

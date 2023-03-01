@@ -1,0 +1,44 @@
+{
+  "name": "study-circle",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "gen": "pocketbase-typegen --db ./pocketbase/pb_data/data.db --out ./src/generated/pocketbaseTypes.ts",
+    "format": "prettier --write \"./src/**/*.{js,ts,jsx,tsx}\""
+  },
+  "dependencies": {
+    "@next/font": "13.1.6",
+    "@uiw/react-md-editor": "^3.20.5",
+    "easymde": "^2.18.0",
+    "markdown-to-jsx": "^7.1.9",
+    "next": "13.1.6",
+    "pocketbase": "^0.11.0",
+    "react": "18.2.0",
+    "react-dnd": "^14.0.2",
+    "react-dnd-html5-backend": "^14.0.0",
+    "react-dom": "18.2.0",
+    "react-simplemde-editor": "^5.2.0",
+    "react-tag-input": "^6.8.1",
+    "react-toastify": "^9.1.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.9",
+    "@types/node": "18.14.0",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "@types/react-tag-input": "^6.6.1",
+    "autoprefixer": "^10.4.13",
+    "eslint": "8.34.0",
+    "eslint-config-next": "13.1.6",
+    "pocketbase-typegen": "^1.1.4",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.4",
+    "prettier-plugin-tailwindcss": "^0.2.3",
+    "tailwindcss": "^3.2.7",
+    "typescript": "4.9.5"
+  }
+}
