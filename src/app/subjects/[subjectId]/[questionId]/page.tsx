@@ -163,10 +163,12 @@ export default function QuestionAnswers({
     e.preventDefault();
     if (!body || body == "") return;
 
-    if (!pb.authStore.model?.id)
-      return toast("You must be logged in to answer a question!", {
+    if (!pb.authStore.model?.id) {
+      toast("You must be logged in to answer a question!", {
         type: "error",
       });
+      return;
+    }
 
     try {
       const data = {

@@ -148,32 +148,29 @@ export default function AuthHome() {
       tag_affiliation: [...tags.map((t) => t.id)],
     };
 
+    const spamData =
+      e.target["title"].value + " " + body + tags.map((t) => t.id).join(" ");
+
     try {
-      var isValid = true;
-
-      const checkSpamData = `{"content":"${
-        e.target["title"].value
-      } ${body} ${tags.map((t) => t.id).join(" ")}"}`;
-
-      const response = await fetch("http://localhost:8000", {
+      const res = await fetch("http://localhost:8000", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: checkSpamData,
+        body: JSON.stringify({ content: spamData }),
       });
 
-      console.log(response);
+      const data = await res.json();
 
-      const text = await response.text();
-      console.log(text);
+      const isValid = data.safe;
 
       if (!isValid) {
-        throw new Error("Please fill all fields");
+        toast("Please be respectfull", { type: "error" });
+        return;
       }
+
       const qsn = await pb.collection("question").create(data);
       toast("Qsn posted successfully", { type: "success" });
-      router.push(`/subjects/${e.target["subject"].value}/${qsn.id}`);
+      router.push(`/subjects/${e.target["subject"].value}/${qsn.id}`, {
+        forceOptimisticNavigation: true,
+      });
     } catch (e: any) {
       console.log(e);
       toast(e.message, { type: "error" });
