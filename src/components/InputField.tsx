@@ -5,16 +5,18 @@ export default function InputField({
   className,
   ...rest
 }: {
-  label: string;
+  label?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <label htmlFor={name} className="text-base font-medium text-gray-900">
-          {label}
-        </label>
-      </div>
-      <div className="mt-2.5">
+      {label && (
+        <div className="flex items-center justify-between">
+          <label htmlFor={name} className="text-base font-medium text-gray-900">
+            {label}
+          </label>
+        </div>
+      )}
+      <div className={label ? "mt-2.5" : ""}>
         <input
           id={name}
           {...rest}

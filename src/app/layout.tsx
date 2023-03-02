@@ -2,10 +2,13 @@
 
 import pb from "@/utils/pb";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
+import InputField from "@/components/InputField";
+import { useEffect, useState } from "react";
+import { Collections, QuestionResponse } from "@/generated/pocketbaseTypes";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function RootLayout({
   children,
@@ -13,6 +16,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const params = useSearchParams();
+  const [searchQsns, setSearchQsns] = useState<QuestionResponse[]>([]);
+
+  useEffect(() => {
+    async function getQsns() {
+      const qsns = await pb
+        .collection(Collections.Question)
+        .getList<QuestionResponse>(1, 5, {
+          filter: `title ?~ "${params.get("q")}" || body ?~ "${params.get(
+            "q"
+          )}"`,
+        });
+
+      setSearchQsns(qsns.items);
+    }
+
+    getQsns();
+  }, [params]);
+
+  const [showSuggestions, setShowSuggesttions] = useState(false);
 
   return (
     <html lang="en">
@@ -27,7 +50,7 @@ export default function RootLayout({
                 <span className="text-3xl text-orange-500">O</span>
               </h1>
             </Link>
-            <nav className="ml-auto hidden items-center justify-center space-x-10 md:flex ">
+            <nav className="ml-auto hidden w-full flex-1 items-center justify-center space-x-10 md:flex ">
               {/* <Link
                   href="/universities"
                   className="no-style text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"
@@ -46,6 +69,35 @@ export default function RootLayout({
               >
                 All Subjects
               </Link>
+              <InputField
+                placeholder="Search Questions"
+                className="w-full"
+                type="search"
+                onFocus={() => setShowSuggesttions(true)}
+                onBlur={() => {
+                  setTimeout(() => {
+                    setShowSuggesttions(false);
+                  }, 300);
+                }}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    router.push(`?q=${e.target.value}`);
+                  }
+                }}
+              />
+              {showSuggestions && (
+                <section className="absolute top-[105px] left-0 right-0  space-y-2 border bg-white p-4">
+                  {searchQsns.map((q) => (
+                    <Link
+                      key={q.id}
+                      href={`/subjects/${q.subject_affiliation}/${q.id}`}
+                      className="block bg-slate-100 p-5 hover:bg-slate-200"
+                    >
+                      {q.title}
+                    </Link>
+                  ))}
+                </section>
+              )}
             </nav>
             <nav className="ml-auto flex items-center justify-center space-x-4">
               {pb.authStore.isValid ? (

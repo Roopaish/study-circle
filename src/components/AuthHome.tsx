@@ -11,8 +11,9 @@ import SelectField from "@/components/SelectField";
 import {
   Collections,
   QuestionResponse,
-  SubjectResponse, TagsResponse,
-  UsersResponse
+  SubjectResponse,
+  TagsResponse,
+  UsersResponse,
 } from "@/generated/pocketbaseTypes";
 import pb from "@/utils/pb";
 import "easymde/dist/easymde.min.css";
@@ -51,8 +52,10 @@ export default function AuthHome() {
         });
       setSubjects(subjects);
 
-      const resourceFilter = pb.authStore.model?.tag_affiliation.map((tag: string) => `tag_affiliation ~ "${tag}"`).join(" || ");
-      console.log(resourceFilter)
+      const resourceFilter = pb.authStore.model?.tag_affiliation
+        .map((tag: string) => `tag_affiliation ~ "${tag}"`)
+        .join(" || ");
+      console.log(resourceFilter);
       const questions = await pb.collection(Collections.Question).getFullList<
         QuestionResponse<{
           subject_affiliation: SubjectResponse;
@@ -146,15 +149,33 @@ export default function AuthHome() {
     };
 
     try {
-      // var isValid = true;
+      var isValid = true;
 
-      // if (!isValid) {
-      //   throw new Error("Please fill all fields");
-      // }
+      const checkSpamData = `{"content":"${
+        e.target["title"].value
+      } ${body} ${tags.map((t) => t.id).join(" ")}"}`;
+
+      const response = await fetch("http://localhost:8000", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: checkSpamData,
+      });
+
+      console.log(response);
+
+      const text = await response.text();
+      console.log(text);
+
+      if (!isValid) {
+        throw new Error("Please fill all fields");
+      }
       const qsn = await pb.collection("question").create(data);
       toast("Qsn posted successfully", { type: "success" });
       router.push(`/subjects/${e.target["subject"].value}/${qsn.id}`);
     } catch (e: any) {
+      console.log(e);
       toast(e.message, { type: "error" });
     }
   }
@@ -199,12 +220,12 @@ export default function AuthHome() {
                     ? suggestions.some((tag) => tag.text == customTag.text)
                       ? suggestions
                       : [
-                        {
-                          id: "addNew",
-                          text: `${customTag.text}:(Click to add)`,
-                        },
-                        ...suggestions,
-                      ]
+                          {
+                            id: "addNew",
+                            text: `${customTag.text}:(Click to add)`,
+                          },
+                          ...suggestions,
+                        ]
                     : suggestions
                 }
                 delimiters={delimiters}
