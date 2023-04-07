@@ -77,12 +77,12 @@ Backend:Python, Socket, Pocketbase
 ![](./images/ss_forum.png)
 ![](./images/ss_pocketbase.png)
 
-## Team Members
+## Team Members for the hackathon
 
-Rupesh Budhathoki (Frontend and Database Design)
-Rikesh Silwal (AI/ML)
-Kushal Bastakoti (Backend and Database Design)
-Bibek Dhakal (Project Manager)
+[Rupesh Budhathoki](https://github.com/roopaish) (Frontend and Database Design)  
+[Rikesh Silwal](https://github.com/FancyCodeMaster) (AI/ML)  
+[Kushal Bastakoti](https://github.com/kushalSB) (Backend and Database Design)  
+[Bibek Dhakal](https://github.com/Bibekdhkl) (Project Manager)  
 
 # Contributors
 
