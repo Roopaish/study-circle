@@ -1,6 +1,10 @@
 # StudyCircle, University Q&A Platform
 # Team परिवर्तन 
 
+## Documents
+- [Idea Picthcing Slides](https://docs.google.com/presentation/d/1nj_9vac3rPZuHqBhDnBvg64sOldZKKCzF6NkLasqXC8/edit?usp=sharing)
+- [Final Slides](https://docs.google.com/presentation/d/1xNHHcb-6Wc0VHbky9GhkR6Bx_F16HWKR0dr-DN23Tis/edit?usp=sharing)
+
 ## Introduction
 StudyCircle Student focused Platform dedicated to bring all learners together at one place to support each other and excel at their studies with the use of best recommended resources.
 
